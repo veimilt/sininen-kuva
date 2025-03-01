@@ -1,0 +1,617 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sininen Kuva • Valokuvauspalvelu</title>
+    <meta name="description"
+        content="Valokuvauspalvelut yrityksille ja yksityishenkilöille • Valokuvaaja Sini Pennanen">
+    <link rel="preload" as="image" href="/images/sininenkuva.webp">
+    <link rel="preload" as="image" href="/images/logo-light.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: rgb(4, 10, 16);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(233, 233, 233);
+        }
+
+        hr {
+            width: 100%;
+            border: none;
+        }
+
+        button {
+            all: unset;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        .menubutton {
+            padding: 1rem;
+            padding-right: 1.5rem;
+            opacity: 0.9;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 200;
+            font-size: 3rem;
+        }
+
+        body {
+            background-color: var(--color-primary);
+            color: rgb(234, 234, 234);
+            font-family: "Overpass", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            letter-spacing: 0.6px;
+        }
+
+        .overlay {
+            left: 0;
+            top: 0;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 900;
+            background-color: rgba(18, 45, 91, 0.4);
+            backdrop-filter: blur(25px);
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0.3s, opacity 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        nav {
+            display: flex;
+            flex-direction: column;
+            font-size: 2rem;
+        }
+
+        nav a,
+        nav button {
+            padding: 1rem;
+        }
+
+        .closebutton {
+            font-size: 50px;
+            margin-top: 1rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .closebutton:hover {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+
+        header {
+            width: 100%;
+            height: 88px;
+            top: 0;
+            left: 0;
+            position: sticky;
+            position: -webkit-sticky;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            background-color: var(--color-primary);
+            backdrop-filter: blur(25px);
+        }
+
+        .headercontent {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .headerlogo {
+            height: 100%;
+            width: auto;
+            padding: 1.5rem;
+        }
+
+        .cover {
+            height: calc(100lvh - 88px);
+            background-image: url('images/sininenglow.webp');
+            background-size: contain;
+        }
+
+        .coveritems {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cover h1 {
+            font-size: 3rem;
+            width: 50%;
+            padding: 3rem;
+            z-index: 2;
+        }
+
+        .coverimg {
+            width: 100%;
+            height: 67%;
+            background-image: url('/images/sininenkuva.webp');
+            aspect-ratio: 5177 / 3094;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 2;
+            border: none;
+        }
+
+        .quote-small {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            font-weight: 300;
+            padding: 0 4rem;
+            font-size: 1.3rem;
+            text-align: center;
+            color: whitesmoke;
+        }
+
+        footer {
+            height: 40lvh;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+
+            .coverimg {
+                height: 100%;
+            }
+
+            .quote-small {
+                display: none;
+            }
+        }
+    </style>
+
+    <!-- Non-critical CSS -->
+    <link rel="stylesheet" href="main.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="main.css">
+    </noscript>
+    <link rel="icon" href="images/favicon.png">
+</head>
+
+<body>
+    <header>
+        <div class="headercontent">
+            <img class="headerlogo" src="images/logo-light.webp" alt="Sininen Kuva logo" width="700" height="159">
+            <button class="menubutton" type="button">
+                <img src="images/menu-blue.svg" alt="menu icon" width="40" height="40">
+            </button>
+        </div>
+    </header>
+    <div class="overlay">
+        <nav>
+            <a href="/gallery">Galleria</a>
+            <button id="openModal" type="button">Esittelyvideo</button>
+            <a href="#contact">Yhteystiedot</a>
+            <button class="closebutton" type="button">&times;</button>
+        </nav>
+
+    </div>
+    <main>
+        <section class="cover">
+            <div class="coveritems">
+                <div class="coverimg"></div>
+                <div class="quote-small">
+                    "Sininen kuva kuvaa maailmasi sellaisena kuin mieli sen
+                    näkee"
+                </div>
+            </div>
+        </section>
+        <div class="quote-big">
+
+            "Sininen kuva kuvaa maailmasi sellaisena kuin mieli sen
+            näkee"
+
+        </div>
+        <section class="portfolio">
+            <div class="imgscroll-container">
+                <div class="scroll-hide-left"></div>
+                <div class="imgscroll">
+                    <img class="lazy-image auto-scroll-elem" data-src="/images/pressimage1.webp"
+                        alt="Press image example" width="1346" height="1772" />
+
+                    <img class="lazy-image auto-scroll-elem" data-src="/images/pressimage2.webp"
+                        alt="Press image example" width="1557" height="2048" />
+
+                    <img class="lazy-image auto-scroll-elem" data-src="/images/pressimage4.webp"
+                        alt="Press image example" width="1205" height="1585" />
+
+                    <img class="lazy-image auto-scroll-elem" data-src="/images/pressimage5.webp"
+                        alt="Press image example" width="1754" height="2308" />
+
+                    <img class="lazy-image auto-scroll-elem" data-src="/images/pressimage3.webp"
+                        alt="Press image example" width="1174" height="1544" />
+                </div>
+                <div class="scroll-hide-right"></div>
+            </div>
+
+            <div class="infosection">
+
+                <img class="lazy-image infosectionimg" data-src="images/sininenglow.webp" alt="background hue" width="1200"
+                    height="1200">
+
+                <div class="infocard fade">
+                    <h2>Kuvauspalvelut</h2>
+                    <p>Tarjoan joustavasti seuraavia valokuvauspalveluita:</p>
+                    <ul>
+                        <li>Yrityskuvaukset</li>
+                        <li>Tuotekuvaukset</li>
+                        <li>Mainoskuvaukset</li>
+                        <li>Muotikuvaukset</li>
+                        <li>Lehtikuvaukset</li>
+                    </ul>
+                </div>
+                <div class="infocard fade">
+                    <h2>Paikkakunnat</h2>
+                    <p>Työskentelen Uudellamaalla ja tarpeen mukaan muualla Suomessa sekä ulkomailla. Voit tiedustella
+                        minulta kuvausjärjestelyistä mikäli tarvitsemasi kuvauspalvelut vaativat matkustamista
+                        kuvauspaikalle.</p>
+                </div>
+            </div>
+
+            <div class="additionalpics-container">
+
+                <div class="additionalpics">
+
+                    <div class="imgcolumn">
+                        <img class="lazy-image additional" data-src="/images/laajis.webp" alt="Portfolio image"
+                            width="5591" height="3727" />
+                        <img class="lazy-image additional" data-src="/images/habitare.webp" alt="Portfolio image"
+                            width="5281" height="3520" />
+                    </div>
+                    <img class="lazy-image additional" data-src="/images/pose.webp" alt="Portfolio image" width="3626"
+                        height="5565" />
+                </div>
+                <div class="additionalpics2">
+                    <div class="imgrow">
+                        <img class="lazy-image additional" data-src="images/muotokuva.webp" alt="Portfolio image"
+                            width="3065" height="3045">
+                        <img class="lazy-image additional" data-src="images/halfface.webp" alt="Portfolio image" width="4264"
+                            height="3712">
+                    </div>
+                    <img class="lazy-image additional" data-src="images/punainen.webp" alt="Portfolio image" width="7778"
+                        height="3576">
+                </div>
+            </div>
+            <div class="buttondiv">
+                <a class="custombutton" href="/gallery">Galleria</a>
+            </div>
+        </section>
+        <section class="about">
+
+            <div class="aboutinner aboutinnerfirst">
+
+                <p class="textcolumn bluecard">
+                    <span class="larger bolder">Etsitkö </span> yrityksellesi ammattivalokuvaajaa, joka hallitsee
+                    kuvaustekniikan sekä tunnelman luomisen parhaan lopputuloksen saamiseksi? Olet
+                    juuri oikeassa paikassa, lämpimästi tervetuloa Siniseen Kuvaan!
+                </p>
+                <img class="lazy-image aboutimg" data-src="/images/sini_pennanen2.webp"
+                    alt="Sini Pennanen profile picture" width="3810" height="2540" />
+            </div>
+            <hr class="hr2">
+            <div class="aboutinner aboutinnersecond">
+                <!-- <img class="aboutimg-second lazy-image" data-src="/images/sini_pennanen1.webp"
+                    alt="Sini Pennanen profile picture" width="2832" height="4256" /> -->
+                <div class="textcolumns">
+                    <p class="textcolumn bluecard">
+                        Sininen Kuva on täyden palvelun valokuvausstudio, jonka perustaja
+                        olen minä, valokuvaaja Sini Pennanen. Sininen Kuva tarjoaa
+                        käyttöösi kaiken osaamiseni ja kokemukseni, mitä olen
+                        vuosien varrella saanut erilaisten ihmisten ja yritysten
+                        kanssa toimiessani.
+                    </p>
+                    <hr class="hr1">
+                    <p class="textcolumn">
+                        Kuvaan useille Suomen johtaville yrityksille sekä mainos- ja viestintätoimistoille. Töitäni voit
+                        nähdä
+                        muun muassa aikakausi- ja asiakaslehdissä sekä mainoksissa Suomessa
+                        ja muualla Euroopassa.
+                        <!-- Aloitin valokuvamallina v. 1996 ja siirryin sujuvasti
+                        kameran toiselle puolelle v. 2002. Kuvattavana oleminen on
+                        antanut minulle perspektiiviä kuvaamiseen ja siihen miten
+                        ohjata ihmistä kameran edessä. -->
+                    </p>
+                </div>
+            </div>
+            <hr class="hr2">
+            <div class="aboutinner aboutinnerthird">
+                <img class="lazy-image aboutimg aboutimg-third" data-src="/images/sini_pennanen3.webp"
+                    alt="Sini Pennanen profile picture" width="4107" height="2670" />
+                <p class="textcolumn bluecard">
+                    <span class="larger bolder">Parasta </span>työssäni on ihmisten kanssa työskentely sekä upean
+                    lopputuloksen aikaansaaminen yhteistyönä. On
+                    hienoa, että saan tehdä töitä erilaisten ihmisten kanssa: yhteistyö muun muassa
+                    kuvausjärjestelijöiden, stailistien, toimittajien,
+                    graafikoiden sekä markkinointi- ja viestintäalan ihmisten kanssa on keskeisessä osassa työssäni.
+                </p>
+            </div>
+            </div>
+        </section>
+
+        <section class="gallerypreview" id="gallerypreview">
+
+            <div class="gallerypreviewitems">
+
+                <img class="lazy-image gallerypreview-img fade" data-src="/images/galleryimg1.webp"
+                    alt="Sini Pennanen gallery image" width="3541" height="2188" />
+
+                <img class="lazy-image gallerypreview-img fade" data-src="/images/galleryimg2.webp"
+                    alt="Sini Pennanen gallery image" width="3416" height="2112" />
+
+                <img class="lazy-image gallerypreview-img fade" data-src="/images/galleryimg3.webp"
+                    alt="Sini Pennanen gallery image" width="5616" height="3471" />
+
+            </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="contactitems">
+                <div class="contactdiv1">
+                    <div class="headerandsocials">
+                        <h2>Yhteystiedot</h2>
+
+                        <div class="socials">
+                            <a class="contactsvg social" href="https://www.instagram.com/sininenkuva/"
+                                target="_blank"><img class="lazy-image" data-src="/images/insta.svg"
+                                    data-large-src="/images/instablack.svg" data-small-src="/images/insta.svg"
+                                    alt="Instagram logo" /></a>
+                            <a class="contactsvg social" href="https://www.linkedin.com/in/sini-pennanen-baaa3b63/"
+                                target="_blank"><img class="lazy-image" data-src="/images/linkkari.svg"
+                                    data-large-src="/images/linkkariblack.svg" data-small-src="/images/linkkari.svg"
+                                    alt="LinkedIn logo" /></a>
+                            <a class="contactsvg social" href="https://www.facebook.com/sininenkuva.fi/"
+                                target="_blank"><img class="lazy-image" data-src="/images/face.svg"
+                                    data-large-src="/images/faceblack.svg" data-small-src="/images/face.svg"
+                                    alt="Facebook logo" /></a>
+                        </div>
+
+                    </div>
+                    <div class="infoboxandimg">
+                        <div class="infobox pop">
+                            <p class="infoboxitem infobutton">Y: 1888410-7</p>
+                            <a class="infoboxitem infobutton" href="mailto:posti@sininenkuva.fi">
+                                posti@sininenkuva.fi</a>
+                            <a class="infoboxitem infobutton" href="tel:+358400948838">
+                                0400 948 838
+                            </a>
+                        </div>
+                        <img class="lazy-image contactimg" data-src="images/sini_pennanen_contact.webp"
+                            alt="Sini Pennanen contact picture" width="3744" height="4461">
+                    </div>
+                </div>
+                <div class="contactdiv2">
+                    <form action="">
+                        <div class="formcontent">
+                            <div class="formcolumn inputcolumn">
+                                <input type="text" id="etunimi" name="etunimi" placeholder="Etunimi" required />
+
+                                <input type="text" id="sukunimi" name="sukunimi" placeholder="Sukunimi" />
+
+                                <input type="text" id="puhelinnumero" name="puhelinnumero"
+                                    placeholder="Puhelinnumero" />
+                                <input type="email" id="email" name="email" placeholder="Sähköposti" />
+                            </div>
+                            <div class="checkboxrow">
+                                <div class="formcolumn checkboxcolumn">
+                                    <p class="bolder">Palvelu</p>
+                                    <hr>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option1" name="option1" />
+                                        <label for="option1">Yrityskuvaukset</label>
+                                    </div>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option2" name="option2" />
+                                        <label for="option2">Tuotekuvaukset</label>
+                                    </div>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option3" name="option3" />
+                                        <label for="option3">Mainoskuvaukset</label>
+                                    </div>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option4" name="option4" />
+                                        <label for="option4">Muotikuvaukset</label>
+                                    </div>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option5" name="option4" />
+                                        <label for="option5">Lehtikuvaukset</label>
+                                    </div>
+                                </div>
+                                <div class="formcolumn checkboxcolumn">
+                                    <p class="bolder">Kiinnostunut myös</p>
+                                    <hr>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option6" name="option6" />
+                                        <label for="option6">Videokuvaus</label>
+                                    </div>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option7" name="option7" />
+                                        <label for="option7">Meikkaaja/stylisti</label>
+                                    </div>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option8" name="option8" />
+                                        <label for="option8">Toimittaja/copywriter</label>
+                                    </div>
+                                    <div class="checkboxandlabel">
+                                        <input type="checkbox" id="option9" name="option9" />
+                                        <label for="option9">Kuvausjärjestelijä</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="formcolumn messagecolumn">
+
+                                <textarea id="message" name="message" placeholder="Viesti"></textarea>
+                            </div>
+                            <input type="submit" class="submitbutton" value="Lähetä" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div id="videoModal" class="modal">
+            <div class="modal-content">
+                <iframe id="youtubeVideo" width="400" height="200" src="" title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footerlogo">
+            <img class="lazy-image" id="footerimage" data-src="/images/logo-light.webp" alt="Sininen Kuva logo"
+                width="700" height="159" />
+        </div>
+        <div class="footerlinks">
+            <p>&copy; Sininen Kuva 2024 • All rights reserved</p>
+            <a href="https://veikkomilton.com/">page by <span style="text-decoration: underline;">Veikko
+                    Milton</span></a>
+            <!-- <a href="/UBUNTU FONT LICENCE.txt" target="_blank" style="color: grey;">Ubuntu Font License</a> -->
+            </p>
+        </div>
+        </main>
+    </footer>
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const images = document.querySelectorAll(".lazy-image");
+
+            images.forEach((img) => {
+                const src = img.getAttribute("data-src");
+                if (src) {
+                    img.src = src;
+                }
+            });
+
+            const scrollContainer = document.querySelector('.imgscroll');
+            const scrollImages = document.querySelectorAll('.imgscroll img');
+
+            const numClones = 10;
+            const scrollSpeed = 3;
+
+            for (let i = 0; i < numClones; i++) {
+                scrollImages.forEach(img => {
+                    const clone = img.cloneNode(true);
+                    scrollContainer.appendChild(clone);
+                });
+            }
+
+            let scrollPos = 0;
+
+            function autoScroll() {
+                scrollPos += scrollSpeed;
+                scrollContainer.scrollLeft = scrollPos;
+                requestAnimationFrame(autoScroll);
+            }
+
+            autoScroll();
+
+            const menuButton = document.querySelector(".menubutton");
+            const closeButton = document.querySelector(".closebutton");
+
+            const overLay = document.querySelector(".overlay");
+
+            const toggleMenu = () => {
+                overLay.classList.toggle("visible");
+            };
+
+            menuButton.addEventListener("click", toggleMenu);
+            closeButton.addEventListener("click", toggleMenu);
+
+            document.querySelector('nav').addEventListener('click', (event) => {
+                if (event.target.tagName === 'A') {
+                    toggleMenu();
+                }
+            });
+
+            const modal = document.getElementById('videoModal');
+            const openBtn = document.getElementById('openModal');
+            const videoFrame = document.getElementById('youtubeVideo');
+
+            const videoURL = "https://www.youtube.com/embed/u2Qc9QYISyQ?controls=1";
+
+            openBtn.addEventListener('click', () => {
+                videoFrame.src = videoURL;
+                modal.style.display = 'block';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    videoFrame.src = '';
+                }
+            });
+
+            function updateImageSrc() {
+                const isLargeScreen = window.innerWidth > 1280;
+
+                document.querySelectorAll('.socials img').forEach(img => {
+                    const defaultSrc = img.getAttribute('src'); // Default src
+                    const largeSrc = img.getAttribute('data-large-src'); // Large src
+                    const smallSrc = img.getAttribute('data-small-src'); // Small src
+
+                    if (isLargeScreen) {
+                        img.src = largeSrc || defaultSrc;
+                    } else {
+                        img.src = smallSrc || defaultSrc;
+                    }
+                });
+            }
+
+
+            updateImageSrc();
+            window.addEventListener('resize', updateImageSrc);
+            window.addEventListener('load', updateImageSrc);
+        });
+
+    </script>
+</body>
+
+</html>
